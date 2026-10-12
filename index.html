@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
@@ -27,6 +27,20 @@ body{background:var(--bg-dark);color:var(--text-light);overflow-x:hidden;min-hei
 @keyframes shine{0%{background-position:0% 50%;}100%{background-position:300% 50%;}}
 header{position:fixed;top:0;width:100%;padding:15px 50px;display:flex;justify-content:space-between;align-items:center;background:rgba(5,5,5,0.85);backdrop-filter:blur(15px);z-index:1000;border-bottom:1px solid rgba(var(--theme-rgb),0.2);}
 .header-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.theme-picker{position:relative;display:flex;align-items:center;justify-content:center;}
+.theme-toggle{width:42px;height:42px;border:2px solid rgba(255,255,255,.75);border-radius:50%;cursor:pointer;background:conic-gradient(#00ff88,#00b4ff,#a855f7,#ff2d55,#ff9500,#ff2d92,#00e5ff,#00ff88);box-shadow:0 0 16px rgba(var(--theme-rgb),.35);position:relative;}
+.theme-toggle::after{content:'🎨';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:19px;text-shadow:0 1px 4px #000;}
+.theme-options{display:none;position:absolute;top:50px;right:0;gap:9px;padding:11px;background:rgba(15,15,15,.97);border:1px solid rgba(var(--theme-rgb),.4);border-radius:16px;box-shadow:0 8px 25px #0009;z-index:2000;}
+.theme-picker.open .theme-options{display:flex;}
+.theme-dot{width:22px;height:22px;flex-shrink:0;padding:0;border-radius:50%;border:2px solid rgba(255,255,255,.35);cursor:pointer;transition:transform .2s,box-shadow .2s;background:var(--dot-color);}
+.theme-dot:hover,.theme-dot.active{transform:scale(1.18);border-color:#fff;box-shadow:0 0 10px var(--dot-color);}
+.theme-dot[data-theme-choice="green"]{--dot-color:#00ff88;}
+.theme-dot[data-theme-choice="blue"]{--dot-color:#00b4ff;}
+.theme-dot[data-theme-choice="purple"]{--dot-color:#a855f7;}
+.theme-dot[data-theme-choice="red"]{--dot-color:#ff2d55;}
+.theme-dot[data-theme-choice="orange"]{--dot-color:#ff9500;}
+.theme-dot[data-theme-choice="pink"]{--dot-color:#ff2d92;}
+.theme-dot[data-theme-choice="cyan"]{--dot-color:#00e5ff;}
 .btn-header{padding:10px 18px;border-radius:50px;font-size:12px;font-weight:600;letter-spacing:1px;transition:0.3s;cursor:pointer;display:inline-flex;align-items:center;gap:8px;font-family:'Poppins',sans-serif;background:transparent;border:2px solid var(--primary);color:var(--primary);text-decoration:none;}
 .btn-header:hover{background:var(--primary);color:#000;box-shadow:var(--accent-glow);transform:translateY(-2px);}
 .btn-header.sound{width:42px;height:42px;padding:0;justify-content:center;border-radius:50%;}
@@ -114,7 +128,7 @@ select:hover,select:focus{border-color:var(--primary);box-shadow:0 0 20px rgba(v
 .tag-disney{background:rgba(0,99,229,0.2);color:#0063e5;}
 .tag-hbo{background:rgba(168,85,247,0.2);color:#a855f7;}
 .tag-apple{background:rgba(255,255,255,0.15);color:#fff;}
-.tag-adult{background:rgba(255,45,85,0.2);color:#ff2d55;}
+
 .empty-state{text-align:center;padding:80px 20px;color:#666;grid-column:1/-1;}
 .empty-state i{font-size:60px;color:var(--primary);opacity:0.3;margin-bottom:20px;display:block;}
 .empty-state h3{font-family:'Orbitron',sans-serif;color:var(--primary);margin-bottom:12px;}
@@ -138,7 +152,7 @@ footer p{color:#666;font-size:12px;letter-spacing:2px;}
 .spinner{width:60px;height:60px;border-radius:50%;border:4px solid rgba(var(--theme-rgb),0.2);border-top-color:var(--primary);animation:spin 1s linear infinite;box-shadow:0 0 30px rgba(var(--theme-rgb),0.4);}
 @keyframes spin{to{transform:rotate(360deg);}}
 .loading-text{font-family:'Orbitron',sans-serif;font-size:14px;color:var(--primary);letter-spacing:4px;}
-@media(max-width:768px){header{padding:12px 15px;}.logo{font-size:18px;}.btn-header span{display:none;}.hero-content h1{font-size:36px;letter-spacing:3px;}.hero-content .subtitle{font-size:12px;}.platforms-bar,.search-section,.genres-section,.main-zone{padding:20px;}.movie-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;}.movie-poster{height:210px;}.cursor-glow{display:none;}.zone-title{font-size:15px;}select{min-width:100%;}}
+@media(max-width:768px){header{padding:12px 15px;gap:8px;}.theme-toggle{width:36px;height:36px;}.theme-options{gap:7px;padding:9px;}.theme-dot{width:18px;height:18px;}.logo{font-size:18px;}.btn-header span{display:none;}.hero-content h1{font-size:36px;letter-spacing:3px;}.hero-content .subtitle{font-size:12px;}.platforms-bar,.search-section,.genres-section,.main-zone{padding:20px;}.movie-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;}.movie-poster{height:210px;}.cursor-glow{display:none;}.zone-title{font-size:15px;}select{min-width:100%;}}
 </style>
 </head>
 <body>
@@ -150,7 +164,19 @@ footer p{color:#666;font-size:12px;letter-spacing:2px;}
 <header>
   <div class="logo" onclick="resetFilters()">MEDJ CINE</div>
   <div class="header-right">
-    <button class="btn-header sound" id="soundToggle" onclick="toggleSound()"><i class="fas fa-volume-up"></i></button>
+    <div class="theme-picker" id="themePicker" aria-label="Choisir un thème de couleur">
+      <button class="theme-toggle" id="themeToggle" type="button" title="Choisir une couleur" aria-label="Ouvrir les couleurs" aria-expanded="false"></button>
+      <div class="theme-options" id="themeOptions" aria-label="Couleurs disponibles">
+        <button class="theme-dot active" data-theme-choice="green" title="Vert" aria-label="Thème vert"></button>
+        <button class="theme-dot" data-theme-choice="blue" title="Bleu" aria-label="Thème bleu"></button>
+        <button class="theme-dot" data-theme-choice="purple" title="Violet" aria-label="Thème violet"></button>
+        <button class="theme-dot" data-theme-choice="red" title="Rouge" aria-label="Thème rouge"></button>
+        <button class="theme-dot" data-theme-choice="orange" title="Orange" aria-label="Thème orange"></button>
+        <button class="theme-dot" data-theme-choice="pink" title="Rose" aria-label="Thème rose"></button>
+        <button class="theme-dot" data-theme-choice="cyan" title="Cyan" aria-label="Thème cyan"></button>
+      </div>
+    </div>
+    <button class="btn-header sound" id="soundToggle" onclick="toggleSound()" aria-label="Activer ou désactiver le son"><i class="fas fa-volume-up"></i></button>
   </div>
 </header>
 
@@ -265,7 +291,6 @@ let currentGenre = 'all';
 let currentQuality = 'all';
 let currentSearch = '';
 let currentSort = 'default';
-let isAdultMode = false;
 let soundEnabled = true;
 let audioCtx = null;
 
@@ -341,8 +366,7 @@ const GENRES = [
   { id: 'romance', label: 'ROMANCE', icon: 'fa-heart' },
   { id: 'scifi', label: 'SCI-FI', icon: 'fa-rocket' },
   { id: 'thriller', label: 'THRILLER', icon: 'fa-knife' },
-  { id: 'western', label: 'WESTERN', icon: 'fa-hat-cowboy' },
-  { id: 'adult', label: 'ADULTE 18+', icon: 'fa-fire' }
+  { id: 'western', label: 'WESTERN', icon: 'fa-hat-cowboy' }
 ];
 
 const platforms = [
@@ -386,7 +410,7 @@ function renderPlatformButtons(){
   platforms.forEach(p => {
     const count = p.id === 'all' ? allMovies.length : allMovies.filter(m => m.platform === p.id).length;
     const btn = document.createElement('button');
-    btn.className = 'platform-chip' + (currentPlatform === p.id && !isAdultMode ? ' active' : '');
+    btn.className = 'platform-chip' + (currentPlatform === p.id ? ' active' : '');
     btn.dataset.id = p.id;
     btn.innerHTML = `<div class="platform-logo"><img src="${p.logo}" alt="${p.name}" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas fa-tv\\' style=\\'color:var(--primary);font-size:20px;\\'></i>'"></div><span>${p.name}</span><span class="count">${count}</span>`;
     btn.addEventListener('mouseenter', () => playSound('hover'));
@@ -412,7 +436,7 @@ function renderGenreButtons(){
 
 function selectPlatform(id){
   playSound('click');
-  currentPlatform = id; isAdultMode = false; currentGenre = 'all'; currentType = 'all';
+  currentPlatform = id; currentGenre = 'all'; currentType = 'all';
   document.querySelectorAll('.platform-chip').forEach(b => b.classList.toggle('active', b.dataset.id === id));
   document.querySelectorAll('.genre-btn').forEach(b => b.classList.toggle('active', b.dataset.genre === 'all'));
   renderMovies();
@@ -421,18 +445,17 @@ function selectPlatform(id){
 function selectGenre(genre){
   playSound('click');
   currentGenre = genre;
-  if(genre === 'adult'){ isAdultMode = true; currentPlatform = 'all'; currentType = 'all'; showToast('🔞 Mode Adulte activé'); }
-  else if(genre === 'film'){ isAdultMode = false; currentType = 'film'; currentGenre = 'all'; }
-  else if(genre === 'serie'){ isAdultMode = false; currentType = 'serie'; currentGenre = 'all'; }
-  else { isAdultMode = false; currentType = 'all'; if(genre !== 'all') currentGenre = genre; }
-  document.querySelectorAll('.platform-chip').forEach(b => b.classList.toggle('active', b.dataset.id === 'all' && !isAdultMode));
+  if(genre === 'film'){ currentType = 'film'; currentGenre = 'all'; }
+  else if(genre === 'serie'){ currentType = 'serie'; currentGenre = 'all'; }
+  else { currentType = 'all'; if(genre !== 'all') currentGenre = genre; }
+  document.querySelectorAll('.platform-chip').forEach(b => b.classList.toggle('active', b.dataset.id === 'all'));
   document.querySelectorAll('.genre-btn').forEach(b => b.classList.toggle('active', b.dataset.genre === genre));
   renderMovies();
 }
 
 function resetFilters(){
   playSound('click');
-  currentPlatform = 'all'; currentYear = 'all'; currentType = 'all'; currentGenre = 'all'; currentQuality = 'all'; currentSearch = ''; currentSort = 'default'; isAdultMode = false;
+  currentPlatform = 'all'; currentYear = 'all'; currentType = 'all'; currentGenre = 'all'; currentQuality = 'all'; currentSearch = ''; currentSort = 'default';
   document.getElementById('searchInput').value = '';
   document.getElementById('yearFilter').value = 'all';
   document.getElementById('qualityFilter').value = 'all';
@@ -458,10 +481,7 @@ function renderMovies(){
   if(!grid) return;
   grid.innerHTML = '';
 
-  let list = [...allMovies];
-  if(isAdultMode){ list = list.filter(m => m.platform === 'adult'); zoneTitle.textContent = '🔞 CONTENU ADULTE'; }
-  else {
-    list = list.filter(m => m.platform !== 'adult');
+  let list = allMovies.filter(m => m.platform !== 'adult');
     if(currentPlatform !== 'all') list = list.filter(m => m.platform === currentPlatform);
     if(currentType !== 'all') list = list.filter(m => m.type === currentType);
     if(currentGenre !== 'all') list = list.filter(m => m.genre === currentGenre);
@@ -470,8 +490,7 @@ function renderMovies(){
     if(currentType === 'film') titleText = '🎥 ' + (currentPlatform === 'all' ? 'TOUS LES FILMS' : 'FILMS ' + platformName.toUpperCase());
     if(currentType === 'serie') titleText = '📺 ' + (currentPlatform === 'all' ? 'TOUTES LES SÉRIES' : 'SÉRIES ' + platformName.toUpperCase());
     if(currentGenre !== 'all'){ const g = GENRES.find(x => x.id === currentGenre); titleText += ' • ' + (g ? g.label : currentGenre.toUpperCase()); }
-    zoneTitle.textContent = titleText;
-  }
+  zoneTitle.textContent = titleText;
 
   if(currentYear !== 'all') list = list.filter(m => m.year == currentYear);
   if(currentQuality !== 'all') list = list.filter(m => m.quality === currentQuality);
@@ -578,6 +597,38 @@ document.getElementById('searchInput').addEventListener('input', e => { currentS
 document.getElementById('yearFilter').addEventListener('change', e => { playSound('click'); currentYear = e.target.value; renderMovies(); });
 document.getElementById('qualityFilter').addEventListener('change', e => { playSound('click'); currentQuality = e.target.value; renderMovies(); });
 document.getElementById('sortFilter').addEventListener('change', e => { playSound('click'); currentSort = e.target.value; renderMovies(); });
+
+function setTheme(theme){
+  const allowedThemes = ['green','blue','purple','red','orange','pink','cyan'];
+  if(!allowedThemes.includes(theme)) return;
+  if(theme === 'green') document.body.removeAttribute('data-theme');
+  else document.body.dataset.theme = theme;
+  document.querySelectorAll('.theme-dot').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.themeChoice === theme);
+  });
+  showToast('🎨 Thème ' + ({green:'vert',blue:'bleu',purple:'violet',red:'rouge',orange:'orange',pink:'rose',cyan:'cyan'}[theme]));
+}
+const themePicker = document.getElementById('themePicker');
+const themeToggle = document.getElementById('themeToggle');
+themeToggle.addEventListener('click', () => {
+  const isOpen = themePicker.classList.toggle('open');
+  themeToggle.setAttribute('aria-expanded', String(isOpen));
+  playSound('click');
+});
+document.querySelectorAll('.theme-dot').forEach(btn => {
+  btn.addEventListener('click', () => {
+    playSound('click');
+    setTheme(btn.dataset.themeChoice);
+    themePicker.classList.remove('open');
+    themeToggle.setAttribute('aria-expanded', 'false');
+  });
+});
+document.addEventListener('click', event => {
+  if (!themePicker.contains(event.target)) {
+    themePicker.classList.remove('open');
+    themeToggle.setAttribute('aria-expanded', 'false');
+  }
+});
 
 async function init(){
   await waitForFB();
