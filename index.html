@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MEDJ CINE</title>
-<!-- FAVICON SVG intégré + fallback -->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23050505'/%3E%3Cpath d='M20 75 L20 30 L35 30 L50 52 L65 30 L80 30 L80 75 L68 75 L68 47 L55 68 L45 68 L32 47 L32 75 Z' fill='%2300ff88'/%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23050505'/%3E%3Cpath d='M20 75 L20 30 L35 30 L50 52 L65 30 L80 30 L80 75 L68 75 L68 47 L55 68 L45 68 L32 47 L32 75 Z' fill='%2300ff88'/%3E%3C/svg%3E">
 <meta name="theme-color" content="#00ff88">
@@ -29,8 +28,6 @@ body{background:var(--bg-dark);color:var(--text-light);overflow-x:hidden;min-hei
 @keyframes shine{0%{background-position:0% 50%;}100%{background-position:300% 50%;}}
 header{position:fixed;top:0;width:100%;padding:15px 50px;display:flex;justify-content:space-between;align-items:center;background:rgba(5,5,5,0.85);backdrop-filter:blur(15px);z-index:1000;border-bottom:1px solid rgba(var(--theme-rgb),0.2);}
 .header-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
-
-/* ---------- THEME PICKER AMÉLIORÉ ---------- */
 .theme-picker{position:relative;display:flex;align-items:center;justify-content:center;}
 .theme-toggle{width:48px;height:48px;border:2px solid rgba(255,255,255,.8);border-radius:50%;cursor:pointer;background:conic-gradient(#00ff88,#00b4ff,#a855f7,#ff2d55,#ff9500,#ff2d92,#00e5ff,#00ff88);box-shadow:0 0 22px rgba(var(--theme-rgb),.6),0 0 0 1px rgba(255,255,255,.2) inset;position:relative;transition:transform .3s ease,box-shadow .3s ease;outline:none;}
 .theme-toggle:hover{transform:scale(1.12) rotate(15deg);box-shadow:0 0 34px rgba(var(--theme-rgb),.9),0 0 0 2px rgba(255,255,255,.4) inset;}
@@ -49,7 +46,6 @@ header{position:fixed;top:0;width:100%;padding:15px 50px;display:flex;justify-co
 .theme-dot[data-theme-choice="orange"]{--dot-color:#ff9500;}
 .theme-dot[data-theme-choice="pink"]{--dot-color:#ff2d92;}
 .theme-dot[data-theme-choice="cyan"]{--dot-color:#00e5ff;}
-
 .btn-header{padding:10px 18px;border-radius:50px;font-size:12px;font-weight:600;letter-spacing:1px;transition:0.3s;cursor:pointer;display:inline-flex;align-items:center;gap:8px;font-family:'Poppins',sans-serif;background:transparent;border:2px solid var(--primary);color:var(--primary);text-decoration:none;}
 .btn-header:hover{background:var(--primary);color:#000;box-shadow:var(--accent-glow);transform:translateY(-2px);}
 .btn-header.sound{width:42px;height:42px;padding:0;justify-content:center;border-radius:50%;}
@@ -137,6 +133,25 @@ select:hover,select:focus{border-color:var(--primary);box-shadow:0 0 20px rgba(v
 .tag-disney{background:rgba(0,99,229,0.2);color:#0063e5;}
 .tag-hbo{background:rgba(168,85,247,0.2);color:#a855f7;}
 .tag-apple{background:rgba(255,255,255,0.15);color:#fff;}
+.tag-marvel{background:rgba(237,29,36,0.2);color:#ed1d24;}
+.tag-dc{background:rgba(4,118,242,0.2);color:#0476f2;}
+.tag-paramount{background:rgba(0,100,255,0.2);color:#0064ff;}
+.tag-canal{background:rgba(255,255,255,0.15);color:#fff;}
+.tag-ocs{background:rgba(226,0,26,0.2);color:#e2001a;}
+.tag-arte{background:rgba(250,72,28,0.2);color:#fa481c;}
+.tag-francetv{background:rgba(0,160,227,0.2);color:#00a0e3;}
+.tag-molotov{background:rgba(0,178,169,0.2);color:#00b2a9;}
+.tag-crunchyroll{background:rgba(244,117,33,0.2);color:#f47521;}
+.tag-adn{background:rgba(0,176,240,0.2);color:#00b0f0;}
+.tag-shadowz{background:rgba(139,0,0,0.3);color:#ff4444;}
+.tag-universcine{background:rgba(255,102,0,0.2);color:#ff6600;}
+.tag-lacinetek{background:rgba(201,162,39,0.2);color:#c9a227;}
+.tag-autre{background:rgba(136,136,136,0.2);color:#888;}
+
+.subtitles-badges{display:flex;gap:4px;flex-wrap:wrap;justify-content:center;margin-top:8px;padding:0 4px;}
+.sub-badge{display:inline-flex;align-items:center;justify-content:center;gap:3px;padding:2px 8px;background:rgba(255,170,0,0.15);border:1px solid #ffaa00;color:#ffaa00;border-radius:20px;font-size:9px;font-weight:700;letter-spacing:0.5px;font-family:'Orbitron',sans-serif;transition:0.3s;}
+.sub-badge:hover{background:rgba(255,170,0,0.3);transform:scale(1.05);}
+.sub-badge i{font-size:8px;}
 
 .empty-state{text-align:center;padding:80px 20px;color:#666;grid-column:1/-1;}
 .empty-state i{font-size:60px;color:var(--primary);opacity:0.3;margin-bottom:20px;display:block;}
@@ -230,6 +245,19 @@ footer p{color:#666;font-size:12px;letter-spacing:2px;}
       <option value="hd">📺 HD</option>
       <option value="sd">📻 SD</option>
     </select>
+    <select id="subtitleFilter">
+      <option value="all">🎞️ Tous sous-titres</option>
+      <option value="fr">🇫🇷 Français (FR)</option>
+      <option value="en">🇬🇧 Anglais (EN)</option>
+      <option value="ar">🇸🇦 Arabe (AR)</option>
+      <option value="es">🇪🇸 Espagnol (ES)</option>
+      <option value="de">🇩🇪 Allemand (DE)</option>
+      <option value="it">🇮🇹 Italien (IT)</option>
+      <option value="pt">🇵🇹 Portugais (PT)</option>
+      <option value="tr">🇹🇷 Turc (TR)</option>
+      <option value="ru">🇷🇺 Russe (RU)</option>
+      <option value="zh">🇨🇳 Chinois (ZH)</option>
+    </select>
     <select id="sortFilter">
       <option value="default">🔄 Trier par</option>
       <option value="recent">📅 Plus récents</option>
@@ -300,6 +328,7 @@ let currentGenre = 'all';
 let currentQuality = 'all';
 let currentSearch = '';
 let currentSort = 'default';
+let currentSubtitle = 'all';
 let soundEnabled = true;
 let audioCtx = null;
 
@@ -384,7 +413,21 @@ const platforms = [
   { id: 'prime', name: 'Prime Video', logo: 'https://upload.wikimedia.org/wikipedia/commons/1/11/Amazon_Prime_Video_logo_%282022%29.svg' },
   { id: 'disney', name: 'Disney+', logo: 'https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg' },
   { id: 'hbo', name: 'HBO Max', logo: 'https://upload.wikimedia.org/wikipedia/commons/1/17/HBO_Max_Logo.svg' },
-  { id: 'apple', name: 'Apple TV+', logo: 'https://upload.wikimedia.org/wikipedia/commons/2/28/Apple_TV_Plus_Logo.svg' }
+  { id: 'apple', name: 'Apple TV+', logo: 'https://upload.wikimedia.org/wikipedia/commons/2/28/Apple_TV_Plus_Logo.svg' },
+  { id: 'marvel', name: 'Marvel', logo: 'https://upload.wikimedia.org/wikipedia/commons/b/b9/Marvel_Logo.svg' },
+  { id: 'dc', name: 'DC', logo: 'https://upload.wikimedia.org/wikipedia/commons/3/3d/DC_Comics_logo.svg' },
+  { id: 'paramount', name: 'Paramount+', logo: 'https://upload.wikimedia.org/wikipedia/commons/a/a5/Paramount_%2B_logo.svg' },
+  { id: 'canal', name: 'Canal+', logo: 'https://upload.wikimedia.org/wikipedia/commons/4/4a/Canal%2B_logo.svg' },
+  { id: 'ocs', name: 'OCS', logo: 'https://upload.wikimedia.org/wikipedia/commons/7/7c/OCS_logo.svg' },
+  { id: 'arte', name: 'Arte', logo: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/Arte_logo.svg' },
+  { id: 'francetv', name: 'France TV', logo: 'https://upload.wikimedia.org/wikipedia/commons/0/0d/France_T%C3%A9l%C3%A9visions_logo.svg' },
+  { id: 'molotov', name: 'Molotov', logo: 'https://upload.wikimedia.org/wikipedia/commons/0/0e/Molotov_TV_logo.svg' },
+  { id: 'crunchyroll', name: 'Crunchyroll', logo: 'https://upload.wikimedia.org/wikipedia/commons/0/0b/Crunchyroll_logo_2018.svg' },
+  { id: 'adn', name: 'ADN', logo: 'https://upload.wikimedia.org/wikipedia/commons/0/0e/ADN_logo.svg' },
+  { id: 'shadowz', name: 'Shadowz', logo: 'https://upload.wikimedia.org/wikipedia/commons/5/5e/Shadowz_logo.svg' },
+  { id: 'universcine', name: 'Universcine', logo: 'https://upload.wikimedia.org/wikipedia/commons/0/0a/Universcine_logo.svg' },
+  { id: 'lacinetek', name: 'LaCinetek', logo: 'https://upload.wikimedia.org/wikipedia/commons/0/0e/LaCinetek_logo.svg' },
+  { id: 'autre', name: 'Sans plateforme', logo: 'https://cdn-icons-png.flaticon.com/512/1828/1828919.png' }
 ];
 
 const qualityConfig = {
@@ -417,7 +460,10 @@ function renderPlatformButtons(){
   if(!row) return;
   row.innerHTML = '';
   platforms.forEach(p => {
-    const count = p.id === 'all' ? allMovies.length : allMovies.filter(m => m.platform === p.id).length;
+    let count = 0;
+    if(p.id === 'all') count = allMovies.length;
+    else if(p.id === 'autre') count = allMovies.filter(m => !m.platform || m.platform === 'autre').length;
+    else count = allMovies.filter(m => m.platform === p.id).length;
     const btn = document.createElement('button');
     btn.className = 'platform-chip' + (currentPlatform === p.id ? ' active' : '');
     btn.dataset.id = p.id;
@@ -464,11 +510,13 @@ function selectGenre(genre){
 
 function resetFilters(){
   playSound('click');
-  currentPlatform = 'all'; currentYear = 'all'; currentType = 'all'; currentGenre = 'all'; currentQuality = 'all'; currentSearch = ''; currentSort = 'default';
+  currentPlatform = 'all'; currentYear = 'all'; currentType = 'all'; currentGenre = 'all'; currentQuality = 'all'; currentSearch = ''; currentSort = 'default'; currentSubtitle = 'all';
   document.getElementById('searchInput').value = '';
   document.getElementById('yearFilter').value = 'all';
   document.getElementById('qualityFilter').value = 'all';
   document.getElementById('sortFilter').value = 'default';
+  const subFilter = document.getElementById('subtitleFilter');
+  if(subFilter) subFilter.value = 'all';
   renderPlatformButtons();
   document.querySelectorAll('.genre-btn').forEach(b => b.classList.toggle('active', b.dataset.genre === 'all'));
   renderMovies();
@@ -476,7 +524,7 @@ function resetFilters(){
 
 function randomMovie(){
   playSound('click');
-  const list = allMovies.filter(m => m.platform !== 'adult');
+  const list = allMovies;
   if(list.length === 0){ showToast('❌ Aucun contenu disponible', true); return; }
   const random = list[Math.floor(Math.random() * list.length)];
   showToast('🎲 ' + random.title);
@@ -490,8 +538,14 @@ function renderMovies(){
   if(!grid) return;
   grid.innerHTML = '';
 
-  let list = allMovies.filter(m => m.platform !== 'adult');
-    if(currentPlatform !== 'all') list = list.filter(m => m.platform === currentPlatform);
+  let list = [...allMovies];
+    if(currentPlatform !== 'all'){
+      if(currentPlatform === 'autre'){
+        list = list.filter(m => !m.platform || m.platform === 'autre');
+      } else {
+        list = list.filter(m => m.platform === currentPlatform);
+      }
+    }
     if(currentType !== 'all') list = list.filter(m => m.type === currentType);
     if(currentGenre !== 'all') list = list.filter(m => m.genre === currentGenre);
     const platformName = platforms.find(p => p.id === currentPlatform)?.name || 'Tous';
@@ -503,6 +557,7 @@ function renderMovies(){
 
   if(currentYear !== 'all') list = list.filter(m => m.year == currentYear);
   if(currentQuality !== 'all') list = list.filter(m => m.quality === currentQuality);
+  if(currentSubtitle !== 'all') list = list.filter(m => m.subtitles && m.subtitles.includes(currentSubtitle));
   if(currentSearch) list = list.filter(m => m.title.toLowerCase().includes(currentSearch.toLowerCase()));
 
   if(currentSort === 'recent') list.sort((a,b) => b.year - a.year);
@@ -519,6 +574,8 @@ function renderMovies(){
 
   list.forEach((movie, i) => {
     const q = qualityConfig[movie.quality] || qualityConfig['hd'];
+    const hasSubs = movie.subtitles && movie.subtitles.length > 0;
+    const platformId = movie.platform || 'autre';
     const card = document.createElement('div');
     card.className = 'movie-card';
     card.style.animation = `fadeUp 0.5s ${i * 0.03}s backwards`;
@@ -535,7 +592,12 @@ function renderMovies(){
       </div>
       <div class="movie-info">
         <h4>${movie.title}</h4>
-        <div class="meta"><span>${movie.year}</span><span>•</span><span class="platform-tag tag-${movie.platform}">${movie.platform}</span></div>
+        <div class="meta"><span>${movie.year}</span><span>•</span><span class="platform-tag tag-${platformId}">${platformId}</span></div>
+        ${hasSubs ? `
+          <div class="subtitles-badges">
+            ${movie.subtitles.map(s => `<span class="sub-badge"><i class="fas fa-closed-captioning"></i>${s.toUpperCase()}</span>`).join('')}
+          </div>
+        ` : ''}
       </div>
     `;
     card.addEventListener('mouseenter', () => playSound('hover'));
@@ -591,7 +653,8 @@ function downloadMovie(id){
   if(!movie) return;
   playSound('click');
   const q = qualityConfig[movie.quality]?.label || 'HD';
-  const content = `MEDJ CINE\n\nTitre : ${movie.title}\nPlateforme : ${movie.platform.toUpperCase()}\nType : ${movie.type}\nAnnée : ${movie.year}\nGenre : ${movie.genre}\nQualité : ${q}\n\n© 2024 MEDJ CINE`;
+  const subs = (movie.subtitles && movie.subtitles.length) ? movie.subtitles.map(s => s.toUpperCase()).join(', ') : 'Aucun';
+  const content = `MEDJ CINE\n\nTitre : ${movie.title}\nPlateforme : ${(movie.platform||'autre').toUpperCase()}\nType : ${movie.type}\nAnnée : ${movie.year}\nGenre : ${movie.genre}\nQualité : ${q}\nSous-titres : ${subs}\n\n© 2024 MEDJ CINE`;
   const blob = new Blob([content], { type: 'text/plain' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -605,6 +668,7 @@ function downloadMovie(id){
 document.getElementById('searchInput').addEventListener('input', e => { currentSearch = e.target.value; renderMovies(); });
 document.getElementById('yearFilter').addEventListener('change', e => { playSound('click'); currentYear = e.target.value; renderMovies(); });
 document.getElementById('qualityFilter').addEventListener('change', e => { playSound('click'); currentQuality = e.target.value; renderMovies(); });
+document.getElementById('subtitleFilter')?.addEventListener('change', e => { playSound('click'); currentSubtitle = e.target.value; renderMovies(); });
 document.getElementById('sortFilter').addEventListener('change', e => { playSound('click'); currentSort = e.target.value; renderMovies(); });
 
 function setTheme(theme){
@@ -651,10 +715,5 @@ async function init(){
 document.body.addEventListener('click', () => initAudio(), { once: true });
 init();
 </script>
-</body>
-</html>  
-  
-
-  
 </body>
 </html>

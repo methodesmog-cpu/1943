@@ -360,6 +360,33 @@ tbody tr:last-child td{border-bottom:none;}
 }
 .form-group .hint{font-size:10px;color:#666;margin-top:4px;font-style:italic;}
 
+/* SUBTITLE BUTTONS */
+.subtitle-buttons{
+  display:flex;flex-wrap:wrap;gap:8px;
+  padding:12px;background:rgba(0,0,0,0.4);
+  border-radius:12px;border:1px solid #333;
+}
+.sub-btn{
+  padding:9px 16px;border-radius:50px;
+  border:1px solid #444;background:rgba(0,0,0,0.6);
+  color:#aaa;cursor:pointer;font-size:12px;
+  font-weight:600;transition:0.3s;
+  font-family:'Poppins',sans-serif;
+  display:flex;align-items:center;gap:5px;
+}
+.sub-btn:hover{
+  border-color:var(--primary-green);
+  color:var(--primary-green);
+  transform:translateY(-2px);
+}
+.sub-btn.active{
+  background:var(--gradient-green);
+  color:#000;border-color:var(--primary-green);
+  box-shadow:0 0 15px rgba(0,255,136,0.5);
+  font-weight:700;
+  transform:translateY(-2px);
+}
+
 /* IMAGE PREVIEW */
 .image-preview{
   margin-top:10px;display:none;
@@ -567,7 +594,20 @@ tbody tr:last-child td{border-bottom:none;}
           <option value="disney">Disney+</option>
           <option value="hbo">HBO Max</option>
           <option value="apple">Apple TV+</option>
-          <option value="adult">Adulte 18+</option>
+          <option value="marvel">Marvel</option>
+          <option value="dc">DC</option>
+          <option value="paramount">Paramount+</option>
+          <option value="canal">Canal+</option>
+          <option value="ocs">OCS</option>
+          <option value="arte">Arte</option>
+          <option value="francetv">France TV</option>
+          <option value="molotov">Molotov</option>
+          <option value="crunchyroll">Crunchyroll</option>
+          <option value="adn">ADN</option>
+          <option value="shadowz">Shadowz</option>
+          <option value="universcine">Universcine</option>
+          <option value="lacinetek">LaCinetek</option>
+          <option value="autre">Autre / Sans plateforme</option>
         </select>
       </div>
 
@@ -605,7 +645,6 @@ tbody tr:last-child td{border-bottom:none;}
           <option value="scifi">🚀 Science-Fiction</option>
           <option value="thriller">🔪 Thriller</option>
           <option value="western">🤠 Western</option>
-          <option value="adult">🔥 Adulte</option>
         </select>
       </div>
 
@@ -640,9 +679,28 @@ tbody tr:last-child td{border-bottom:none;}
       </div>
 
       <div class="form-group full">
-        <label><i class="fas fa-language"></i> Langues / Sous-titres</label>
+        <label><i class="fas fa-language"></i> Langues / Audio</label>
         <input type="text" id="movieLanguages" placeholder="Ex: Français, English, العربية">
       </div>
+
+      <!-- ═══ SOUS-TITRES ═══ -->
+      <div class="form-group full">
+        <label><i class="fas fa-closed-captioning"></i> 🎞️ Sous-titres disponibles</label>
+        <div class="subtitle-buttons" id="subtitleButtons">
+          <button type="button" class="sub-btn" data-sub="fr" onclick="toggleSubtitle(this)">🇫🇷 FR</button>
+          <button type="button" class="sub-btn" data-sub="en" onclick="toggleSubtitle(this)">🇬🇧 EN</button>
+          <button type="button" class="sub-btn" data-sub="ar" onclick="toggleSubtitle(this)">🇸🇦 AR</button>
+          <button type="button" class="sub-btn" data-sub="es" onclick="toggleSubtitle(this)">🇪🇸 ES</button>
+          <button type="button" class="sub-btn" data-sub="de" onclick="toggleSubtitle(this)">🇩🇪 DE</button>
+          <button type="button" class="sub-btn" data-sub="it" onclick="toggleSubtitle(this)">🇮🇹 IT</button>
+          <button type="button" class="sub-btn" data-sub="pt" onclick="toggleSubtitle(this)">🇵🇹 PT</button>
+          <button type="button" class="sub-btn" data-sub="tr" onclick="toggleSubtitle(this)">🇹🇷 TR</button>
+          <button type="button" class="sub-btn" data-sub="ru" onclick="toggleSubtitle(this)">🇷🇺 RU</button>
+          <button type="button" class="sub-btn" data-sub="zh" onclick="toggleSubtitle(this)">🇨🇳 ZH</button>
+        </div>
+        <div class="hint">Cliquez pour activer/désactiver les sous-titres disponibles</div>
+      </div>
+      <!-- ═══ FIN SOUS-TITRES ═══ -->
 
       <div class="form-group full">
         <label><i class="fas fa-link"></i> 🔗 Lien de streaming (URL vidéo) *</label>
@@ -861,20 +919,25 @@ function renderTable(){
     return;
   }
 
-  const colors={netflix:'#e50914',prime:'#00a8e1',disney:'#0063e5',hbo:'#a855f7',apple:'#fff',adult:'#ff2d55'};
+  const colors={netflix:'#e50914',prime:'#00a8e1',disney:'#0063e5',hbo:'#a855f7',apple:'#fff',marvel:'#ed1d24',dc:'#0476f2',paramount:'#0064ff',canal:'#fff',ocs:'#e2001a',arte:'#fa481c',francetv:'#00a0e3',molotov:'#00b2a9',crunchyroll:'#f47521',adn:'#00b0f0',shadowz:'#ff4444',universcine:'#ff6600',lacinetek:'#c9a227',autre:'#888'};
 
   filtered.forEach((movie,i)=>{
     const tr=document.createElement('tr');
     const q=qualityLabels[movie.quality]||qualityLabels['hd'];
     const hasLink=movie.streamUrl&&movie.streamUrl.trim();
+    const hasSubs=movie.subtitles && movie.subtitles.length>0;
+    const platformId = movie.platform || 'autre';
     tr.innerHTML=`
       <td>${movie.id}</td>
       <td><strong>${movie.title}</strong></td>
-      <td><span style="color:${colors[movie.platform]||'#fff'};font-weight:600;">${movie.platform.toUpperCase()}</span></td>
+      <td><span style="color:${colors[platformId]||'#fff'};font-weight:600;">${platformId.toUpperCase()}</span></td>
       <td>${movie.type==='film'?'🎬 Film':'📺 Série'}</td>
       <td>${movie.year}</td>
       <td><span style="color:${q.color};font-weight:700;font-size:11px;">${q.icon} ${q.label}</span></td>
-      <td>${hasLink ? '<span style="color:#00ff88;font-size:16px;">🔗</span>' : '<span style="color:#666;">—</span>'}</td>
+      <td>
+        ${hasLink ? '<span style="color:#00ff88;font-size:16px;" title="Lien dispo">🔗</span>' : '<span style="color:#666;">—</span>'}
+        ${hasSubs ? '<span style="color:#ffaa00;font-size:11px;margin-left:6px;font-weight:700;" title="Sous-titres: '+movie.subtitles.join(', ').toUpperCase()+'">CC</span>' : ''}
+      </td>
       <td>
         <button class="btn btn-edit" onclick="editMovie('${movie.firestoreId}')"><i class="fas fa-edit"></i></button>
         <button class="btn btn-delete" onclick="deleteMovie('${movie.firestoreId}','${movie.title.replace(/'/g,"\\'")}')"><i class="fas fa-trash"></i></button>
@@ -895,6 +958,22 @@ function updateStats(){
 
 const modal=document.getElementById('movieModal');
 
+function toggleSubtitle(btn){
+  btn.classList.toggle('active');
+}
+
+function getSelectedSubtitles(){
+  const btns=document.querySelectorAll('#subtitleButtons .sub-btn.active');
+  return Array.from(btns).map(b=>b.dataset.sub);
+}
+
+function setSelectedSubtitles(subs){
+  if(!Array.isArray(subs)) subs=[];
+  document.querySelectorAll('#subtitleButtons .sub-btn').forEach(b=>{
+    b.classList.toggle('active', subs.includes(b.dataset.sub));
+  });
+}
+
 function openModal(){
   modal.classList.add('active');
   document.getElementById('modalTitle').innerText='AJOUTER UN FILM';
@@ -914,6 +993,7 @@ function openModal(){
   document.getElementById('movieTrailerUrl').value='';
   document.getElementById('movieImg').value='';
   document.getElementById('imagePreview').classList.remove('show');
+  setSelectedSubtitles([]);
 }
 
 function closeModal(){
@@ -953,6 +1033,7 @@ function editMovie(firestoreId){
   document.getElementById('movieStreamUrl').value=movie.streamUrl||'';
   document.getElementById('movieTrailerUrl').value=movie.trailerUrl||'';
   document.getElementById('movieImg').value=movie.img||'';
+  setSelectedSubtitles(movie.subtitles || []);
   previewImage();
 }
 
@@ -981,6 +1062,7 @@ async function saveMovie(){
     actors:document.getElementById('movieActors').value.trim(),
     description:document.getElementById('movieDescription').value.trim(),
     languages:document.getElementById('movieLanguages').value.trim(),
+    subtitles: getSelectedSubtitles(),
     streamUrl:document.getElementById('movieStreamUrl').value.trim(),
     trailerUrl:document.getElementById('movieTrailerUrl').value.trim(),
     img:document.getElementById('movieImg').value.trim()||'https://via.placeholder.com/300x450/333/fff?text=No+Image'
