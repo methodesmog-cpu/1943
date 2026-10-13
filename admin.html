@@ -265,6 +265,7 @@ body{background:var(--bg-dark);color:var(--text-light);overflow-x:hidden;}
 .stat-card:nth-child(2){animation-delay:0.2s;}
 .stat-card:nth-child(3){animation-delay:0.3s;}
 .stat-card:nth-child(4){animation-delay:0.4s;}
+.stat-card:nth-child(5){animation-delay:0.5s;}
 .stat-card:hover{transform:translateY(-5px);border-color:var(--primary-green);box-shadow:var(--accent-glow);}
 .stat-icon{
   font-size:28px;color:var(--primary-green);
@@ -285,6 +286,8 @@ body{background:var(--bg-dark);color:var(--text-light);overflow-x:hidden;}
 .btn-edit:hover{transform:scale(1.1);}
 .btn-delete{background:var(--danger);color:white;padding:8px 14px;font-size:13px;border-radius:10px;}
 .btn-delete:hover{transform:scale(1.1);}
+.btn-episodes{background:linear-gradient(135deg,#a855f7,#6b21a8);color:white;padding:8px 14px;font-size:13px;border-radius:10px;}
+.btn-episodes:hover{transform:scale(1.1);}
 
 .table-container{
   background:rgba(15,15,15,0.8);backdrop-filter:blur(15px);
@@ -428,6 +431,155 @@ tbody tr:last-child td{border-bottom:none;}
 .toast.show{transform:translateX(0);}
 .toast.error{background:linear-gradient(135deg,#ff2d55,#8b0020);color:#fff;}
 
+/* ═══ SECTION SAISONS / ÉPISODES ═══ */
+.seasons-section{
+  display:none;
+  margin-top:20px;
+  padding:20px;
+  background:rgba(0,0,0,0.4);
+  border-radius:15px;
+  border:1px solid rgba(168,85,247,0.3);
+}
+.seasons-section.show{display:block;}
+
+.seasons-header{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:20px;flex-wrap:wrap;gap:10px;
+}
+.seasons-header h4{
+  color:#a855f7;font-family:'Orbitron',sans-serif;
+  font-size:14px;letter-spacing:2px;
+  display:flex;align-items:center;gap:10px;
+}
+.btn-add-season{
+  background:linear-gradient(135deg,#a855f7,#6b21a8);
+  color:#fff;padding:10px 18px;border-radius:50px;
+  border:none;cursor:pointer;font-weight:600;font-size:12px;
+  font-family:'Poppins',sans-serif;
+  display:flex;align-items:center;gap:8px;
+  transition:0.3s;box-shadow:0 5px 15px rgba(168,85,247,0.4);
+}
+.btn-add-season:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(168,85,247,0.7);}
+
+.season-block{
+  background:rgba(15,15,15,0.8);
+  border:1px solid rgba(168,85,247,0.3);
+  border-radius:12px;
+  margin-bottom:15px;
+  overflow:hidden;
+}
+.season-header{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:12px 18px;
+  background:rgba(168,85,247,0.1);
+  cursor:pointer;
+  transition:0.3s;
+}
+.season-header:hover{background:rgba(168,85,247,0.2);}
+.season-title{
+  display:flex;align-items:center;gap:12px;
+  font-weight:600;color:#a855f7;
+  font-family:'Orbitron',sans-serif;font-size:13px;
+  letter-spacing:1px;
+}
+.season-title i{font-size:16px;}
+.season-actions{display:flex;gap:8px;align-items:center;}
+.season-actions button{
+  background:none;border:none;cursor:pointer;
+  color:#888;font-size:14px;padding:5px 8px;
+  border-radius:6px;transition:0.3s;
+}
+.season-actions button:hover{background:rgba(255,255,255,0.1);color:#fff;}
+.season-actions .toggle-icon{transition:transform 0.3s;}
+.season-block.collapsed .toggle-icon{transform:rotate(-90deg);}
+
+.season-content{
+  padding:15px;
+  display:block;
+}
+.season-block.collapsed .season-content{display:none;}
+
+.season-fields{
+  display:grid;grid-template-columns:2fr 1fr 1fr;
+  gap:10px;margin-bottom:15px;
+  padding-bottom:15px;
+  border-bottom:1px solid rgba(168,85,247,0.15);
+}
+.season-fields .form-group{margin-bottom:0;}
+.season-fields input, .season-fields textarea{
+  padding:10px 12px;font-size:13px;
+}
+
+.episodes-list{margin-top:10px;}
+.episodes-header-row{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:10px;
+}
+.episodes-header-row h5{
+  color:#ffaa00;font-size:11px;letter-spacing:2px;
+  text-transform:uppercase;font-weight:700;
+}
+.btn-add-episode{
+  background:linear-gradient(135deg,#ffaa00,#cc8800);
+  color:#000;padding:8px 14px;border-radius:50px;
+  border:none;cursor:pointer;font-weight:700;font-size:11px;
+  font-family:'Poppins',sans-serif;
+  display:flex;align-items:center;gap:6px;
+  transition:0.3s;box-shadow:0 4px 12px rgba(255,170,0,0.4);
+}
+.btn-add-episode:hover{transform:scale(1.05);box-shadow:0 6px 20px rgba(255,170,0,0.7);}
+
+.episode-item{
+  display:grid;
+  grid-template-columns:40px 1fr 1.5fr 100px 60px;
+  gap:10px;
+  align-items:center;
+  padding:10px 12px;
+  background:rgba(0,0,0,0.4);
+  border:1px solid #333;
+  border-radius:10px;
+  margin-bottom:8px;
+  transition:0.3s;
+}
+.episode-item:hover{border-color:rgba(255,170,0,0.5);background:rgba(255,170,0,0.05);}
+.episode-num{
+  width:32px;height:32px;border-radius:50%;
+  background:linear-gradient(135deg,#ffaa00,#cc8800);
+  color:#000;font-weight:900;font-size:13px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Orbitron',sans-serif;
+}
+.episode-item input{
+  padding:8px 10px;font-size:12px;
+  background:rgba(0,0,0,0.5);border:1px solid #333;
+  border-radius:8px;color:white;
+  font-family:'Poppins',sans-serif;
+  transition:0.3s;
+}
+.episode-item input:focus{
+  border-color:#ffaa00;
+  box-shadow:0 0 12px rgba(255,170,0,0.3);
+  outline:none;
+}
+.episode-remove{
+  width:32px;height:32px;border-radius:50%;
+  background:rgba(255,45,85,0.2);
+  border:1px solid var(--danger);
+  color:var(--danger);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:0.3s;font-size:12px;
+}
+.episode-remove:hover{background:var(--danger);color:#fff;transform:scale(1.1);}
+
+.empty-seasons{
+  text-align:center;padding:30px 20px;
+  color:#666;font-size:13px;
+}
+.empty-seasons i{
+  font-size:36px;color:#a855f7;opacity:0.3;
+  display:block;margin-bottom:10px;
+}
+
 @media (max-width:900px){
   #dashboard.active{flex-direction:column;}
   .sidebar{width:100%;flex-direction:row;overflow-x:auto;padding:15px;}
@@ -439,18 +591,19 @@ tbody tr:last-child td{border-bottom:none;}
   .modal-content{padding:25px 20px;}
   .login-box{padding:35px 25px;}
   .login-logo{font-size:24px;}
+  .season-fields{grid-template-columns:1fr;}
+  .episode-item{grid-template-columns:1fr 1fr;gap:8px;}
+  .episode-item .episode-num{grid-column:1/-1;justify-self:start;}
 }
 </style>
 </head>
 <body>
 
-<!-- LOADING -->
 <div id="loadingScreen">
   <div class="spinner"></div>
   <div class="loading-text">CHARGEMENT...</div>
 </div>
 
-<!-- LOGIN -->
 <div id="loginScreen" class="hidden">
   <div class="login-box">
     <div class="login-icon"><i class="fas fa-user-shield"></i></div>
@@ -492,14 +645,13 @@ tbody tr:last-child td{border-bottom:none;}
   </div>
 </div>
 
-<!-- DASHBOARD -->
 <div id="dashboard">
   <div class="sidebar">
     <div class="logo">MEDJ CINE ADMIN</div>
     <a href="#" class="active">
       <i class="fas fa-tachometer-alt"></i> Tableau de bord
     </a>
-    <a href="acueil.html">
+    <a href="/acueil">
       <i class="fas fa-globe"></i> Voir le site
     </a>
     <a onclick="logout()" style="color:#ff8fa3;">
@@ -514,18 +666,16 @@ tbody tr:last-child td{border-bottom:none;}
 
   <div class="main-content">
     <div class="header-admin">
-      <h2>GESTION DES FILMS</h2>
+      <h2>GESTION DES FILMS & SÉRIES</h2>
       <button class="btn btn-add" onclick="openModal()">
         <i class="fas fa-plus"></i> AJOUTER
       </button>
     </div>
 
-    <!-- SEARCH -->
     <div class="search-bar">
-      <input type="text" id="searchInput" placeholder="🔍 Rechercher un film..." oninput="renderTable()">
+      <input type="text" id="searchInput" placeholder="🔍 Rechercher un film ou une série..." oninput="renderTable()">
     </div>
 
-    <!-- STATS -->
     <div class="stats-grid">
       <div class="stat-card">
         <div class="stat-icon"><i class="fas fa-film"></i></div>
@@ -543,13 +693,17 @@ tbody tr:last-child td{border-bottom:none;}
         <div class="stat-label">Séries</div>
       </div>
       <div class="stat-card">
+        <div class="stat-icon"><i class="fas fa-layer-group"></i></div>
+        <div class="stat-value" id="episodesCount">0</div>
+        <div class="stat-label">Épisodes</div>
+      </div>
+      <div class="stat-card">
         <div class="stat-icon"><i class="fas fa-star"></i></div>
         <div class="stat-value" id="quality4kCount">0</div>
         <div class="stat-label">4K Ultra HD</div>
       </div>
     </div>
 
-    <!-- TABLE -->
     <div class="table-container">
       <table>
         <thead>
@@ -560,6 +714,7 @@ tbody tr:last-child td{border-bottom:none;}
             <th>Type</th>
             <th>Année</th>
             <th>Qualité</th>
+            <th>Saisons / Épisodes</th>
             <th>Lien</th>
             <th>Actions</th>
           </tr>
@@ -574,7 +729,6 @@ tbody tr:last-child td{border-bottom:none;}
   </div>
 </div>
 
-<!-- MODAL -->
 <div class="modal" id="movieModal">
   <div class="modal-content">
     <h3 id="modalTitle">AJOUTER UN FILM</h3>
@@ -613,7 +767,7 @@ tbody tr:last-child td{border-bottom:none;}
 
       <div class="form-group">
         <label><i class="fas fa-video"></i> Type *</label>
-        <select id="movieType">
+        <select id="movieType" onchange="toggleTypeFields()">
           <option value="film">🎬 Film</option>
           <option value="serie">📺 Série</option>
         </select>
@@ -658,9 +812,9 @@ tbody tr:last-child td{border-bottom:none;}
         </select>
       </div>
 
-      <div class="form-group">
+      <div class="form-group" id="durationField">
         <label><i class="fas fa-clock"></i> Durée</label>
-        <input type="text" id="movieDuration" placeholder="Ex: 2h 15min ou 3 saisons">
+        <input type="text" id="movieDuration" placeholder="Ex: 2h 15min">
       </div>
 
       <div class="form-group">
@@ -683,7 +837,6 @@ tbody tr:last-child td{border-bottom:none;}
         <input type="text" id="movieLanguages" placeholder="Ex: Français, English, العربية">
       </div>
 
-      <!-- ═══ SOUS-TITRES ═══ -->
       <div class="form-group full">
         <label><i class="fas fa-closed-captioning"></i> 🎞️ Sous-titres disponibles</label>
         <div class="subtitle-buttons" id="subtitleButtons">
@@ -700,9 +853,8 @@ tbody tr:last-child td{border-bottom:none;}
         </div>
         <div class="hint">Cliquez pour activer/désactiver les sous-titres disponibles</div>
       </div>
-      <!-- ═══ FIN SOUS-TITRES ═══ -->
 
-      <div class="form-group full">
+      <div class="form-group full" id="streamUrlField">
         <label><i class="fas fa-link"></i> 🔗 Lien de streaming (URL vidéo) *</label>
         <input type="url" id="movieStreamUrl" placeholder="https://exemple.com/film.mp4 ou https://exemple.com/embed/123">
         <div class="hint">MP4, M3U8, MKV, embed, YouTube, Vimeo acceptés</div>
@@ -724,6 +876,21 @@ tbody tr:last-child td{border-bottom:none;}
       </div>
     </div>
 
+    <div class="seasons-section" id="seasonsSection">
+      <div class="seasons-header">
+        <h4><i class="fas fa-layer-group"></i> SAISONS & ÉPISODES</h4>
+        <button class="btn-add-season" type="button" onclick="addSeason()">
+          <i class="fas fa-plus"></i> AJOUTER UNE SAISON
+        </button>
+      </div>
+      <div id="seasonsContainer">
+        <div class="empty-seasons">
+          <i class="fas fa-layer-group"></i>
+          Aucune saison ajoutée. Cliquez sur "Ajouter une saison" pour commencer.
+        </div>
+      </div>
+    </div>
+
     <div class="modal-actions">
       <button class="btn btn-cancel" onclick="closeModal()">ANNULER</button>
       <button class="btn btn-save" onclick="saveMovie()">
@@ -735,7 +902,6 @@ tbody tr:last-child td{border-bottom:none;}
 
 <div class="toast" id="toast">Prêt !</div>
 
-<!-- FIREBASE -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
@@ -765,7 +931,6 @@ window.FB = {
 window.dispatchEvent(new Event('fb-ready'));
 </script>
 
-<!-- APP LOGIC -->
 <script>
 let soundEnabled = true;
 let audioCtx = null;
@@ -855,6 +1020,7 @@ async function logout(){
 
 let unsubscribeMovies=null;
 let movies=[];
+let currentSeasons = [];
 
 function waitForFB(){
   return new Promise(resolve=>{
@@ -899,6 +1065,11 @@ const qualityLabels={
   'sd':{label:'SD',color:'#888',icon:'📻'}
 };
 
+function countEpisodes(movie){
+  if(!movie.seasons || !Array.isArray(movie.seasons)) return 0;
+  return movie.seasons.reduce((total, s) => total + (s.episodes ? s.episodes.length : 0), 0);
+}
+
 function renderTable(){
   const tbody=document.getElementById('adminTableBody');
   const search=document.getElementById('searchInput').value.toLowerCase().trim();
@@ -914,19 +1085,23 @@ function renderTable(){
   }
 
   if(filtered.length===0){
-    tbody.innerHTML=`<tr><td colspan="8" class="empty-row"><i class="fas fa-inbox"></i>${search ? 'Aucun résultat' : 'Aucun film. Cliquez sur AJOUTER.'}</td></tr>`;
+    tbody.innerHTML=`<tr><td colspan="9" class="empty-row"><i class="fas fa-inbox"></i>${search ? 'Aucun résultat' : 'Aucun film. Cliquez sur AJOUTER.'}</td></tr>`;
     updateStats();
     return;
   }
 
   const colors={netflix:'#e50914',prime:'#00a8e1',disney:'#0063e5',hbo:'#a855f7',apple:'#fff',marvel:'#ed1d24',dc:'#0476f2',paramount:'#0064ff',canal:'#fff',ocs:'#e2001a',arte:'#fa481c',francetv:'#00a0e3',molotov:'#00b2a9',crunchyroll:'#f47521',adn:'#00b0f0',shadowz:'#ff4444',universcine:'#ff6600',lacinetek:'#c9a227',autre:'#888'};
 
-  filtered.forEach((movie,i)=>{
+  filtered.forEach((movie)=>{
     const tr=document.createElement('tr');
     const q=qualityLabels[movie.quality]||qualityLabels['hd'];
     const hasLink=movie.streamUrl&&movie.streamUrl.trim();
     const hasSubs=movie.subtitles && movie.subtitles.length>0;
     const platformId = movie.platform || 'autre';
+    const isSerie = movie.type === 'serie';
+    const nbSeasons = isSerie && movie.seasons ? movie.seasons.length : 0;
+    const nbEpisodes = countEpisodes(movie);
+
     tr.innerHTML=`
       <td>${movie.id}</td>
       <td><strong>${movie.title}</strong></td>
@@ -935,12 +1110,20 @@ function renderTable(){
       <td>${movie.year}</td>
       <td><span style="color:${q.color};font-weight:700;font-size:11px;">${q.icon} ${q.label}</span></td>
       <td>
+        ${isSerie ? (
+          nbSeasons > 0
+            ? `<span style="color:#a855f7;font-weight:700;font-size:12px;">📚 ${nbSeasons} S · 🎞️ ${nbEpisodes} Ép.</span>`
+            : `<span style="color:#ffaa00;font-weight:700;font-size:11px;">⚠️ Aucune saison</span>`
+        ) : '<span style="color:#666;font-size:11px;">—</span>'}
+      </td>
+      <td>
         ${hasLink ? '<span style="color:#00ff88;font-size:16px;" title="Lien dispo">🔗</span>' : '<span style="color:#666;">—</span>'}
         ${hasSubs ? '<span style="color:#ffaa00;font-size:11px;margin-left:6px;font-weight:700;" title="Sous-titres: '+movie.subtitles.join(', ').toUpperCase()+'">CC</span>' : ''}
       </td>
-      <td>
-        <button class="btn btn-edit" onclick="editMovie('${movie.firestoreId}')"><i class="fas fa-edit"></i></button>
-        <button class="btn btn-delete" onclick="deleteMovie('${movie.firestoreId}','${movie.title.replace(/'/g,"\\'")}')"><i class="fas fa-trash"></i></button>
+      <td style="white-space:nowrap;">
+        ${isSerie ? `<button class="btn btn-episodes" onclick="editMovie('${movie.firestoreId}', true)" title="Gérer les épisodes"><i class="fas fa-layer-group"></i></button>` : ''}
+        <button class="btn btn-edit" onclick="editMovie('${movie.firestoreId}')" title="Modifier"><i class="fas fa-edit"></i></button>
+        <button class="btn btn-delete" onclick="deleteMovie('${movie.firestoreId}','${movie.title.replace(/'/g,"\\'")}')" title="Supprimer"><i class="fas fa-trash"></i></button>
       </td>
     `;
     tbody.appendChild(tr);
@@ -954,6 +1137,8 @@ function updateStats(){
   document.getElementById('filmCount').textContent=movies.filter(m=>m.type==='film').length;
   document.getElementById('serieCount').textContent=movies.filter(m=>m.type==='serie').length;
   document.getElementById('quality4kCount').textContent=movies.filter(m=>m.quality==='4k').length;
+  const totalEp = movies.reduce((sum, m) => sum + countEpisodes(m), 0);
+  document.getElementById('episodesCount').textContent=totalEp;
 }
 
 const modal=document.getElementById('movieModal');
@@ -972,6 +1157,184 @@ function setSelectedSubtitles(subs){
   document.querySelectorAll('#subtitleButtons .sub-btn').forEach(b=>{
     b.classList.toggle('active', subs.includes(b.dataset.sub));
   });
+}
+
+function toggleTypeFields(){
+  const type = document.getElementById('movieType').value;
+  const seasonsSection = document.getElementById('seasonsSection');
+  const streamUrlField = document.getElementById('streamUrlField');
+  const durationField = document.getElementById('durationField');
+  const modalTitle = document.getElementById('modalTitle');
+  const movieId = document.getElementById('movieId').value;
+
+  if(type === 'serie'){
+    seasonsSection.classList.add('show');
+    streamUrlField.style.display = 'none';
+    durationField.style.display = 'none';
+    if(movieId === '') document.getElementById('movieStreamUrl').value = '';
+  } else {
+    seasonsSection.classList.remove('show');
+    streamUrlField.style.display = 'block';
+    durationField.style.display = 'block';
+  }
+
+  if(movieId === ''){
+    modalTitle.innerText = type === 'serie' ? 'AJOUTER UNE SÉRIE' : 'AJOUTER UN FILM';
+  }
+}
+
+function addSeason(seasonData = null){
+  const container = document.getElementById('seasonsContainer');
+  const empty = container.querySelector('.empty-seasons');
+  if(empty) empty.remove();
+
+  const seasonIndex = currentSeasons.length;
+  const season = seasonData || {
+    season: seasonIndex + 1,
+    title: `Saison ${seasonIndex + 1}`,
+    description: '',
+    year: '',
+    episodes: []
+  };
+
+  currentSeasons.push(season);
+  renderSeasons();
+}
+
+function renderSeasons(){
+  const container = document.getElementById('seasonsContainer');
+  container.innerHTML = '';
+
+  if(currentSeasons.length === 0){
+    container.innerHTML = `
+      <div class="empty-seasons">
+        <i class="fas fa-layer-group"></i>
+        Aucune saison ajoutée. Cliquez sur "Ajouter une saison" pour commencer.
+      </div>
+    `;
+    return;
+  }
+
+  currentSeasons.forEach((season, sIndex) => {
+    const block = document.createElement('div');
+    block.className = 'season-block';
+    block.innerHTML = `
+      <div class="season-header" onclick="toggleSeason(${sIndex}, event)">
+        <div class="season-title">
+          <i class="fas fa-chevron-down toggle-icon"></i>
+          <span>📚 Saison ${season.season}${season.title && season.title !== `Saison ${season.season}` ? ' — ' + season.title : ''}</span>
+          <span style="color:#888;font-size:11px;">(${season.episodes.length} épisode${season.episodes.length > 1 ? 's' : ''})</span>
+        </div>
+        <div class="season-actions">
+          <button type="button" onclick="moveSeason(${sIndex}, -1, event)" title="Monter"><i class="fas fa-arrow-up"></i></button>
+          <button type="button" onclick="moveSeason(${sIndex}, 1, event)" title="Descendre"><i class="fas fa-arrow-down"></i></button>
+          <button type="button" onclick="removeSeason(${sIndex}, event)" title="Supprimer" style="color:#ff2d55;"><i class="fas fa-trash"></i></button>
+        </div>
+      </div>
+      <div class="season-content">
+        <div class="season-fields">
+          <div class="form-group">
+            <label>Numéro de saison</label>
+            <input type="number" min="1" value="${season.season}" onchange="updateSeasonField(${sIndex}, 'season', parseInt(this.value) || 1)">
+          </div>
+          <div class="form-group">
+            <label>Titre saison (optionnel)</label>
+            <input type="text" value="${(season.title || '').replace(/"/g, '&quot;')}" placeholder="Ex: La Malédiction" onchange="updateSeasonField(${sIndex}, 'title', this.value)">
+          </div>
+          <div class="form-group">
+            <label>Année</label>
+            <input type="number" min="1900" max="2100" value="${season.year || ''}" placeholder="Ex: 2024" onchange="updateSeasonField(${sIndex}, 'year', parseInt(this.value) || '')">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Description de la saison (optionnel)</label>
+          <textarea placeholder="Résumé de la saison..." onchange="updateSeasonField(${sIndex}, 'description', this.value)">${season.description || ''}</textarea>
+        </div>
+        <div class="episodes-list">
+          <div class="episodes-header-row">
+            <h5><i class="fas fa-list-ol"></i> Épisodes (${season.episodes.length})</h5>
+            <button class="btn-add-episode" type="button" onclick="addEpisode(${sIndex})">
+              <i class="fas fa-plus"></i> AJOUTER UN ÉPISODE
+            </button>
+          </div>
+          <div id="episodes-container-${sIndex}">
+            ${season.episodes.length === 0 ? '<div style="color:#666;font-size:12px;text-align:center;padding:15px;">Aucun épisode. Cliquez sur "Ajouter un épisode".</div>' : ''}
+          </div>
+        </div>
+      </div>
+    `;
+    container.appendChild(block);
+
+    const epContainer = block.querySelector(`#episodes-container-${sIndex}`);
+    season.episodes.forEach((ep, eIndex) => {
+      const epEl = document.createElement('div');
+      epEl.className = 'episode-item';
+      epEl.innerHTML = `
+        <div class="episode-num">${ep.episode || eIndex + 1}</div>
+        <input type="text" value="${(ep.title || '').replace(/"/g, '&quot;')}" placeholder="Titre épisode *" onchange="updateEpisodeField(${sIndex}, ${eIndex}, 'title', this.value)">
+        <input type="url" value="${(ep.streamUrl || '').replace(/"/g, '&quot;')}" placeholder="URL vidéo de l'épisode *" onchange="updateEpisodeField(${sIndex}, ${eIndex}, 'streamUrl', this.value)">
+        <input type="text" value="${(ep.duration || '').replace(/"/g, '&quot;')}" placeholder="Durée (ex: 45min)" onchange="updateEpisodeField(${sIndex}, ${eIndex}, 'duration', this.value)">
+        <button type="button" class="episode-remove" onclick="removeEpisode(${sIndex}, ${eIndex})" title="Supprimer l'épisode"><i class="fas fa-times"></i></button>
+      `;
+      epContainer.appendChild(epEl);
+    });
+  });
+}
+
+function toggleSeason(index, event){
+  if(event) event.stopPropagation();
+  const blocks = document.querySelectorAll('.season-block');
+  if(blocks[index]) blocks[index].classList.toggle('collapsed');
+}
+
+function updateSeasonField(sIndex, field, value){
+  currentSeasons[sIndex][field] = value;
+  if(field === 'season' || field === 'title'){
+    renderSeasons();
+  }
+}
+
+function moveSeason(index, direction, event){
+  if(event) event.stopPropagation();
+  const newIndex = index + direction;
+  if(newIndex < 0 || newIndex >= currentSeasons.length) return;
+  [currentSeasons[index], currentSeasons[newIndex]] = [currentSeasons[newIndex], currentSeasons[index]];
+  currentSeasons.forEach((s, i) => {
+    if(!s.title || s.title.startsWith('Saison ')) s.title = `Saison ${i + 1}`;
+    s.season = i + 1;
+  });
+  renderSeasons();
+}
+
+function removeSeason(index, event){
+  if(event) event.stopPropagation();
+  if(!confirm(`Supprimer la saison ${currentSeasons[index].season} et tous ses épisodes ?`)) return;
+  currentSeasons.splice(index, 1);
+  currentSeasons.forEach((s, i) => {
+    if(!s.title || s.title.startsWith('Saison ')) s.title = `Saison ${i + 1}`;
+    s.season = i + 1;
+  });
+  renderSeasons();
+}
+
+function addEpisode(sIndex){
+  currentSeasons[sIndex].episodes.push({
+    episode: currentSeasons[sIndex].episodes.length + 1,
+    title: '',
+    streamUrl: '',
+    duration: ''
+  });
+  renderSeasons();
+}
+
+function updateEpisodeField(sIndex, eIndex, field, value){
+  currentSeasons[sIndex].episodes[eIndex][field] = value;
+}
+
+function removeEpisode(sIndex, eIndex){
+  currentSeasons[sIndex].episodes.splice(eIndex, 1);
+  currentSeasons[sIndex].episodes.forEach((ep, i) => { ep.episode = i + 1; });
+  renderSeasons();
 }
 
 function openModal(){
@@ -994,6 +1357,9 @@ function openModal(){
   document.getElementById('movieImg').value='';
   document.getElementById('imagePreview').classList.remove('show');
   setSelectedSubtitles([]);
+  currentSeasons = [];
+  renderSeasons();
+  toggleTypeFields();
 }
 
 function closeModal(){
@@ -1013,11 +1379,11 @@ function previewImage(){
   }
 }
 
-function editMovie(firestoreId){
+function editMovie(firestoreId, focusEpisodes = false){
   const movie=movies.find(m=>m.firestoreId===firestoreId);
   if(!movie) return;
   modal.classList.add('active');
-  document.getElementById('modalTitle').innerText='MODIFIER';
+  document.getElementById('modalTitle').innerText='MODIFIER ' + (movie.type === 'serie' ? 'LA SÉRIE' : 'LE FILM');
   document.getElementById('movieId').value=firestoreId;
   document.getElementById('movieTitle').value=movie.title||'';
   document.getElementById('moviePlatform').value=movie.platform||'netflix';
@@ -1034,7 +1400,16 @@ function editMovie(firestoreId){
   document.getElementById('movieTrailerUrl').value=movie.trailerUrl||'';
   document.getElementById('movieImg').value=movie.img||'';
   setSelectedSubtitles(movie.subtitles || []);
-  previewImage();
+
+  currentSeasons = movie.seasons ? JSON.parse(JSON.stringify(movie.seasons)) : [];
+  renderSeasons();
+  toggleTypeFields();
+
+  if(focusEpisodes){
+    setTimeout(() => {
+      document.getElementById('seasonsSection').scrollIntoView({behavior:'smooth', block:'start'});
+    }, 300);
+  }
 }
 
 async function deleteMovie(firestoreId, title){
@@ -1050,20 +1425,22 @@ async function deleteMovie(firestoreId, title){
 
 async function saveMovie(){
   const firestoreId=document.getElementById('movieId').value;
+  const type=document.getElementById('movieType').value;
+
   const data={
     title:document.getElementById('movieTitle').value.trim(),
     platform:document.getElementById('moviePlatform').value,
-    type:document.getElementById('movieType').value,
+    type:type,
     year:parseInt(document.getElementById('movieYear').value),
     genre:document.getElementById('movieGenre').value,
     quality:document.getElementById('movieQuality').value,
-    duration:document.getElementById('movieDuration').value.trim(),
+    duration:type === 'film' ? document.getElementById('movieDuration').value.trim() : '',
     director:document.getElementById('movieDirector').value.trim(),
     actors:document.getElementById('movieActors').value.trim(),
     description:document.getElementById('movieDescription').value.trim(),
     languages:document.getElementById('movieLanguages').value.trim(),
     subtitles: getSelectedSubtitles(),
-    streamUrl:document.getElementById('movieStreamUrl').value.trim(),
+    streamUrl:type === 'film' ? document.getElementById('movieStreamUrl').value.trim() : '',
     trailerUrl:document.getElementById('movieTrailerUrl').value.trim(),
     img:document.getElementById('movieImg').value.trim()||'https://via.placeholder.com/300x450/333/fff?text=No+Image'
   };
@@ -1074,16 +1451,61 @@ async function saveMovie(){
     return;
   }
 
+  if(type === 'serie'){
+    const cleanSeasons = currentSeasons.map((s, i) => ({
+      season: s.season || i + 1,
+      title: s.title || `Saison ${i + 1}`,
+      year: s.year || '',
+      description: s.description || '',
+      episodes: (s.episodes || []).map((ep, j) => ({
+        episode: ep.episode || j + 1,
+        title: ep.title || '',
+        streamUrl: ep.streamUrl || '',
+        duration: ep.duration || ''
+      }))
+    }));
+    data.seasons = cleanSeasons;
+
+    const hasContent = cleanSeasons.some(s => s.episodes.length > 0);
+    if(!hasContent){
+      if(!confirm('⚠️ Aucun épisode ajouté. Voulez-vous vraiment enregistrer cette série sans épisodes ?')) {
+        return;
+      }
+    } else {
+      for(const s of cleanSeasons){
+        for(const ep of s.episodes){
+          if(!ep.title){
+            playSound('error');
+            showToast(`⚠️ L'épisode ${ep.episode} de la saison ${s.season} n'a pas de titre`, true);
+            return;
+          }
+          if(!ep.streamUrl){
+            playSound('error');
+            showToast(`⚠️ L'épisode ${ep.episode} de la saison ${s.season} n'a pas de lien vidéo`, true);
+            return;
+          }
+        }
+      }
+    }
+  } else {
+    data.seasons = [];
+    if(!data.streamUrl){
+      playSound('error');
+      showToast('⚠️ Le lien de streaming est obligatoire pour un film', true);
+      return;
+    }
+  }
+
   try{
     if(firestoreId){
       await window.FB.updateDoc(window.FB.doc(window.FB.db,'movies',firestoreId),data);
-      showToast('✅ Film modifié');
+      showToast('✅ ' + (type === 'serie' ? 'Série' : 'Film') + ' modifié');
     }else{
       const newId=movies.length>0?Math.max(...movies.map(m=>m.id||0))+1:1;
       await window.FB.addDoc(window.FB.collection(window.FB.db,'movies'),{
         id:newId,...data,createdAt:window.FB.serverTimestamp()
       });
-      showToast('✅ Film ajouté');
+      showToast('✅ ' + (type === 'serie' ? 'Série' : 'Film') + ' ajouté');
     }
     playSound('success');
     closeModal();
