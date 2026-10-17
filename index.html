@@ -114,6 +114,8 @@ select:hover,select:focus{border-color:var(--primary);}
 .q-hd{background:var(--gradient);color:#fff;border-color:rgba(255,255,255,.5);}
 .q-sd{background:linear-gradient(135deg,#888,#444);color:#fff;border-color:rgba(255,255,255,.3);}
 .q-hdr{background:linear-gradient(135deg,#a855f7,#6b21a8);color:#fff;border-color:#d8b4fe;}
+/* === BADGE 3D === */
+.q-3d{background:linear-gradient(135deg,#00e5ff,#006064);color:#fff;border-color:#00e5ff;text-shadow:0 1px 4px #000;box-shadow:0 0 15px rgba(0,229,255,.6);}
 .type-badge{position:absolute;top:10px;left:10px;padding:5px 10px;border-radius:8px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(0,0,0,.7);color:var(--primary);border:1px solid var(--primary);z-index:3;}
 .movie-card .overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.95) 0%,transparent 70%);opacity:0;transition:.4s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;z-index:4;padding:15px;}
 .movie-card:hover .overlay{opacity:1;}
@@ -293,6 +295,7 @@ footer p{color:#666;font-size:12px;letter-spacing:2px;}
       <option value="all">🎞️ Toutes qualités</option>
       <option value="4k">🏆 4K Ultra HD</option>
       <option value="hdr">✨ HDR</option>
+      <option value="3d">🕶️ 3D</option>
       <option value="hd">📺 HD</option>
       <option value="sd">📻 SD</option>
     </select>
@@ -514,7 +517,8 @@ const GENRES = [
   { id: 'romance', label: 'ROMANCE', icon: 'fa-heart' },
   { id: 'scifi', label: 'SCI-FI', icon: 'fa-rocket' },
   { id: 'thriller', label: 'THRILLER', icon: 'fa-knife' },
-  { id: 'western', label: 'WESTERN', icon: 'fa-hat-cowboy' }
+  { id: 'western', label: 'WESTERN', icon: 'fa-hat-cowboy' },
+  { id: '3d', label: '3D', icon: 'fa-cube' } /* ← Genre 3D ajouté */
 ];
 
 const platforms = [
@@ -543,6 +547,7 @@ const platforms = [
 const qualityConfig = {
   '4k':{label:'4K ULTRA HD',class:'q-4k',text:'4K'},
   'hdr':{label:'HDR',class:'q-hdr',text:'HDR'},
+  '3d':{label:'3D',class:'q-3d',text:'3D'}, /* ← Qualité 3D ajoutée */
   'hd':{label:'HD',class:'q-hd',text:'HD'},
   'sd':{label:'SD',class:'q-sd',text:'SD'}
 };
