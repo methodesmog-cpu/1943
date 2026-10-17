@@ -825,6 +825,8 @@ tbody tr:last-child td{border-bottom:none;}
           <option value="shadowz">Shadowz</option>
           <option value="universcine">Universcine</option>
           <option value="lacinetek">LaCinetek</option>
+          <option value="allocine">🎬 AlloCiné</option>
+          <option value="imdb">⭐ IMDb</option>
           <option value="autre">Autre / Sans plateforme</option>
         </select>
       </div>
@@ -864,8 +866,6 @@ tbody tr:last-child td{border-bottom:none;}
           <option value="scifi">🚀 Science-Fiction</option>
           <option value="thriller">🔪 Thriller</option>
           <option value="western">🤠 Western</option>
-          <option value="allocine">🎬 ALLO CINEMA</option>
-          <option value="imdb">⭐ IMDb</option>
         </select>
       </div>
 
@@ -1171,7 +1171,7 @@ function renderTable(){
     return;
   }
 
-  const colors={netflix:'#e50914',prime:'#00a8e1',disney:'#0063e5',hbo:'#a855f7',apple:'#fff',marvel:'#ed1d24',dc:'#0476f2',paramount:'#0064ff',canal:'#fff',ocs:'#e2001a',arte:'#fa481c',francetv:'#00a0e3',molotov:'#00b2a9',crunchyroll:'#f47521',adn:'#00b0f0',shadowz:'#ff4444',universcine:'#ff6600',lacinetek:'#c9a227',autre:'#888'};
+  const colors={netflix:'#e50914',prime:'#00a8e1',disney:'#0063e5',hbo:'#a855f7',apple:'#fff',marvel:'#ed1d24',dc:'#0476f2',paramount:'#0064ff',canal:'#fff',ocs:'#e2001a',arte:'#fa481c',francetv:'#00a0e3',molotov:'#00b2a9',crunchyroll:'#f47521',adn:'#00b0f0',shadowz:'#ff4444',universcine:'#ff6600',lacinetek:'#c9a227',allocine:'#ff6b00',imdb:'#f5c518',autre:'#888'};
 
   pageMovies.forEach((movie)=>{
     const tr=document.createElement('tr');
